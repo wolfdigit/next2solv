@@ -243,9 +243,10 @@ function produceData() {
 		
 		console.log(probs[pid]);
 		pnum = probs[pid][1];
-		$("<p>", {html: "hardness: "+myRand+"/"+pids.length}).appendTo("#main");
-		$("<p>", {html: "prob num: "+pnum}).appendTo("#main");
-		$("<p>", {html: probs[pid][2]}).appendTo("#main");
+		$("<h2>").appendTo("#main");
+		$("<a>", {html: "[ "+pnum+" ]: "+probs[pid][2], href:"#", onclick:"parent.findPnum("+pnum+");"}).appendTo("#main h2");
+		$("<p>").appendTo("#main");
+		$("<a>", {html: "hardness: "+myRand+"/"+pids.length, href:"#", onclick:"parent.findPnum("+pnum+");"}).appendTo("#main p");
 	}
 }
 
