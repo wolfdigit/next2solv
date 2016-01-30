@@ -76,6 +76,10 @@
     </div>
 </div>
 
+<div id="slotMachine" style="display:none;">
+<a href="javascript:void(0);" target="_self" onClick="showSlot();">I'm feeling lucky!</a>
+<div id="slotDiv" style="background:white; position:absolute; z-index:1"></div>
+</div>
 <ul class="nav nav-pills" id="tabs">
 </ul>
 <div class="tab-content" id="contents">
@@ -108,6 +112,31 @@ function mouseover(d) {
         .attr("class", "inbl popup"+addClass);
 }
 
+var selectedPnum="";
+function findPnum(pnum) {
+	$("#p"+selectedPnum).css("background-color", "");
+	$("#r"+selectedPnum).css("fill", "");
+	selectedPnum = pnum;
+	$("#p"+selectedPnum).css("background-color", "red");
+	$("#r"+selectedPnum).css("fill", "red");
+	
+	$('a[href="#tab' + pnum2tab[selectedPnum] + '"]').trigger('click');
+	$("#p"+selectedPnum).addClass("popup");
+	
+	$("#slotDiv iframe").remove();
+}
+
+function showSlot() {
+	$("#slotDiv iframe").remove();
+	$("<iframe>", {src: "slotMachine.html#"+uname})
+		//.css("position", "absolute")
+		//.css("z-index", "2")
+		.css("width", "600px")
+		.css("height", "300px")
+		.appendTo("#slotDiv");
+	return false;
+}
+
 function p0(n) {
     if (n<10) return "0"+n;
     return ""+n;
@@ -115,6 +144,7 @@ function p0(n) {
     
 function render(theData) {
     d3.select("#input").remove();
+    $("#slotMachine").show();
 	var tab = d3.select("#tabs").selectAll("li")
 		.data(theData).enter()
 		.append("li")
@@ -129,6 +159,7 @@ function render(theData) {
 		.enter().append("rect")
 		.attr("width", imW).attr("height", imH)
 		.attr("transform", function(d,i){return "translate("+i%pgW*imW+","+Math.floor(i/pgW)*imH+")";})
+		.attr("id", function(d){return "r"+d["pnum"];})
 		.attr("class", function(d){
 			retv = "imgbl";
 			if (d["status"]=="ac") retv += " ac";
@@ -152,6 +183,7 @@ function render(theData) {
 			if (d["status"]=="tried") retv += " tried";
 			return retv;
 		})
+		.attr("id", function(d){return "p"+d["pnum"];})
 		.on("mouseover", mouseover).on("mouseleave", mouseleave)
 		.html( function (d) { 
             retv = "<a href=\"https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem="+d["pid"]+"\">";
@@ -175,6 +207,7 @@ function render(theData) {
         } );
 }
 
+var pnum2tab={};
 var theData;
 function produceData(probs, subs) {
 	uname = subs["uname"];
@@ -228,6 +261,7 @@ function produceData(probs, subs) {
 		}
 		if (count%(pgW*pgH)==0) theData.push([]);
 		theData[Math.floor(count/(pgW*pgH))].push({ "pid":prob[0], "pnum":prob[1], "title":prob[2], "DAcU":prob[3], "status":stat, "time":time });
+		pnum2tab[prob[1]] = Math.floor(count/(pgW*pgH));
 		count++;
 	});
 
