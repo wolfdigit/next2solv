@@ -77,9 +77,33 @@
 </div>
 
 <div id="slotMachine" style="display:none;">
-<a href="javascript:void(0);" target="_self" onClick="showSlot();">I'm feeling lucky!</a>
-<div id="slotDiv" style="background:white; position:absolute; z-index:1"></div>
+	<!-- Button trigger modal -->
+	<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">
+	  I'm feeling lucky!
+	</button>
+
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div class="modal-dialog" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title" id="myModalLabel">啊我就拉霸機咩~</h4>
+		  </div>
+		  <div class="modal-body">
+			<div id="slotDiv"></div>
+		  </div>
+		  <!--
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			<button type="button" class="btn btn-primary">Save changes</button>
+		  </div>
+		  -->
+		</div>
+	  </div>
+	</div>
 </div>
+
 <ul class="nav nav-pills" id="tabs">
 </ul>
 <div class="tab-content" id="contents">
@@ -123,15 +147,14 @@ function findPnum(pnum) {
 	$('a[href="#tab' + pnum2tab[selectedPnum] + '"]').trigger('click');
 	$("#p"+selectedPnum).addClass("popup");
 	
-	$("#slotDiv iframe").remove();
+	$('#myModal').modal('hide');
 }
 
 function showSlot() {
 	$("#slotDiv iframe").remove();
 	$("<iframe>", {src: "slotMachine.html#"+uname})
-		//.css("position", "absolute")
-		//.css("z-index", "2")
-		.css("width", "600px")
+		.attr("frameborder", "0")
+		.css("width", "100%")
 		.css("height", "300px")
 		.appendTo("#slotDiv");
 	return false;
@@ -144,6 +167,8 @@ function p0(n) {
     
 function render(theData) {
     d3.select("#input").remove();
+    $("#myModal").on('shown.bs.modal', showSlot);
+    $("#myModal").on('hidden.bs.modal', function() { $("#slotDiv iframe").remove(); });
     $("#slotMachine").show();
 	var tab = d3.select("#tabs").selectAll("li")
 		.data(theData).enter()
