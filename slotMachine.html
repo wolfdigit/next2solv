@@ -244,9 +244,9 @@ function produceData() {
 		console.log(probs[pid]);
 		pnum = probs[pid][1];
 		$("<h2>").appendTo("#main");
-		$("<a>", {html: "[ "+pnum+" ]: "+probs[pid][2], href:"#", onclick:"parent.findPnum("+pnum+");"}).appendTo("#main h2");
+		$("<a>", {html: "[ "+pnum+" ]: "+probs[pid][2], href:"https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem="+probs[pid][0], target: "_blank"}).appendTo("#main h2");
 		$("<p>").appendTo("#main");
-		$("<a>", {html: "hardness: "+myRand+"/"+pids.length, href:"#", onclick:"parent.findPnum("+pnum+");"}).appendTo("#main p");
+		$("<button>", {html: "hardness: "+myRand+"/"+pids.length, href:"#", onclick:"parent.findPnum("+pnum+");", type: "button", class: "btn btn-info btn-sm"}).appendTo("#main p");
 	}
 }
 
