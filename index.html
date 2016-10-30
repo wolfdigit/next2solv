@@ -76,7 +76,7 @@
     </div>
 </div>
 
-<div id="slotMachine" style="display:none;">
+<div id="slotMachine" style="display:none; margin:10px; width:100%; text-align:center">
 	<!-- Button trigger modal -->
 	<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">
 	  I'm feeling lucky!
@@ -165,6 +165,23 @@ function p0(n) {
     return ""+n;
 }
     
+  
+function injectEvent() {
+  $('.tab-pane').each(function(idx) {
+    $(this).data("html", $(this).html());
+    $(this).html("");
+  });
+  target = "#tab0";
+  $(target).html($(target).data("html"));
+
+  $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+    $('.tab-pane').each(function(idx) {
+      $(this).html("");
+    });
+    var target = $(e.target).attr("href") // activated tab
+    $(target).html($(target).data("html"));
+  });
+}
 function render(theData) {
     d3.select("#input").remove();
     $("#myModal").on('shown.bs.modal', showSlot);
@@ -230,6 +247,8 @@ function render(theData) {
             }
             return retv;
         } );
+  
+  injectEvent();
 }
 
 var pnum2tab={};
