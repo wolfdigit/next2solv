@@ -143,11 +143,13 @@ function findPnum(pnum) {
   
 	$('a[href="#tab' + pnum2tab[selectedPnum] + '"]').trigger('click');
 	selectedPnum = pnum;
-	$("#p"+selectedPnum).css("background-color", "red");
-	$("#r"+selectedPnum).css("fill", "red");
-	$("#p"+selectedPnum).addClass("popup");	
+    setTimeout(function(){
+      $("#p"+selectedPnum).css("background-color", "red");
+	  $("#r"+selectedPnum).css("fill", "red");
+	  $("#p"+selectedPnum).addClass("popup");	
 	
-	$('#myModal').modal('hide');
+	  $('#myModal').modal('hide');
+    }, 500);
 }
 
 function showSlot() {
@@ -176,6 +178,8 @@ function injectEvent() {
 
   $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
     $('.tab-pane').each(function(idx) {
+      html = $(this).html();
+      if (html!="") $(this).data("html", html);
       $(this).html("");
     });
     var target = $(e.target).attr("href") // activated tab
