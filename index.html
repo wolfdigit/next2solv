@@ -1,6 +1,7 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Uva next2solv</title>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.9/d3.min.js"></script>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" crossorigin="anonymous">
@@ -141,8 +142,8 @@ function findPnum(pnum) {
 	$("#p"+selectedPnum).css("background-color", "");
 	$("#r"+selectedPnum).css("fill", "");
   
-	$('a[href="#tab' + pnum2tab[selectedPnum] + '"]').trigger('click');
 	selectedPnum = pnum;
+	$('a[href="#tab' + pnum2tab[selectedPnum] + '"]').trigger('click');
     setTimeout(function(){
       $("#p"+selectedPnum).css("background-color", "red");
 	  $("#r"+selectedPnum).css("fill", "red");
@@ -348,6 +349,7 @@ function getUid(probs, uname) {
 
 var probs;
 function main(uname) {
+  document.title = uname + " - " + document.title;
 	d3.json("http://uhunt.felix-halim.net/api/p", function(err,json){
 		if (err) return console.warn(error);
 		probs = json;
