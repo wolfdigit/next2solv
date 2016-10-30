@@ -140,12 +140,12 @@ var selectedPnum="";
 function findPnum(pnum) {
 	$("#p"+selectedPnum).css("background-color", "");
 	$("#r"+selectedPnum).css("fill", "");
+  
+	$('a[href="#tab' + pnum2tab[selectedPnum] + '"]').trigger('click');
 	selectedPnum = pnum;
 	$("#p"+selectedPnum).css("background-color", "red");
 	$("#r"+selectedPnum).css("fill", "red");
-	
-	$('a[href="#tab' + pnum2tab[selectedPnum] + '"]').trigger('click');
-	$("#p"+selectedPnum).addClass("popup");
+	$("#p"+selectedPnum).addClass("popup");	
 	
 	$('#myModal').modal('hide');
 }
