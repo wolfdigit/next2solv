@@ -234,7 +234,7 @@ function produceData() {
 		console.log("sigma="+std);
 		
 		if (isNaN(mean) || isNaN(std)) {
-			mean = 1;
+			mean = 0;
 			std = 10;
 		}
 		
@@ -243,13 +243,18 @@ function produceData() {
 			myRand = normalRand()*std+mean;
 			console.log("myRand="+myRand);
 			myRand = Math.floor(myRand);
+			if (myRand<0) continue;
 			pid = pids[myRand];
 			if (hasAc(pid,ac)) ACed = 1;
 			else               ACed = 0;
 		} while (ACed);
 		
-		console.log(probs[pid]);
-		pnum = probs[pid][1];
+		prob = probs.find(function (val, idx, arr) {
+			if (val[0]==this) return true;
+			else              return false;
+		}, pid);
+		console.log(prob);
+		pnum = prob[1];
 		$("<h2>").appendTo("#main");
 		$("<a>", {html: "[ "+pnum+" ]: "+probs[pid][2], href:"https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem="+probs[pid][0], target: "_blank"}).appendTo("#main h2");
 		$("<p>").appendTo("#main");
