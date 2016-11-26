@@ -103,6 +103,15 @@
 		</div>
 	  </div>
 	</div>
+
+	<form style="display: inline-block; margin-left: 30px; margin-bottom: -13px" onsubmit="return findPnumForm();">
+		<div class="input-group">
+			<input type="text" class="form-control" id="pnum" placeholder="problem number">
+			<span class="input-group-btn">
+				<button class="btn btn-secondary" id="findPnum" type="submit">Search</button>
+			</span>
+		</div>
+	</form>
 </div>
 
 <ul class="nav nav-pills" id="tabs">
@@ -141,16 +150,21 @@ var selectedPnum="";
 function findPnum(pnum) {
 	$("#p"+selectedPnum).css("background-color", "");
 	$("#r"+selectedPnum).css("fill", "");
-  
+
 	selectedPnum = pnum;
 	$('a[href="#tab' + pnum2tab[selectedPnum] + '"]').trigger('click');
     setTimeout(function(){
-      $("#p"+selectedPnum).css("background-color", "red");
+	  $("#p"+selectedPnum).css("background-color", "red");
 	  $("#r"+selectedPnum).css("fill", "red");
 	  $("#p"+selectedPnum).addClass("popup");	
 	
 	  $('#myModal').modal('hide');
     }, 500);
+}
+
+function findPnumForm() {
+	findPnum($("#pnum").val());
+	return false;
 }
 
 function showSlot() {
@@ -188,10 +202,10 @@ function injectEvent() {
   });
 }
 function render(theData) {
-    d3.select("#input").remove();
-    $("#myModal").on('shown.bs.modal', showSlot);
-    $("#myModal").on('hidden.bs.modal', function() { $("#slotDiv iframe").remove(); });
-    $("#slotMachine").show();
+	d3.select("#input").remove();
+	$("#myModal").on('shown.bs.modal', showSlot);
+	$("#myModal").on('hidden.bs.modal', function() { $("#slotDiv iframe").remove(); });
+	$("#slotMachine").show();
 	var tab = d3.select("#tabs").selectAll("li")
 		.data(theData).enter()
 		.append("li")
@@ -259,7 +273,7 @@ function render(theData) {
 var pnum2tab={};
 var theData;
 function produceData(probs, subs) {
-	uname = subs["uname"];
+	//uname = subs["uname"];
 
 	acs = [];
 	subs["subs"].forEach(function(val,key,arr){
