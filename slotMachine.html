@@ -1,5 +1,6 @@
 <html>
 <head>
+<title>啊我就拉霸機咩</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 <style>
@@ -135,6 +136,7 @@ function roll() {
 function main(uname) {
 	$("#input").hide();
 	$("#main").show();
+	document.title = uname + " - " + document.title;
 	roll();
 	getPid();
 	getUid(uname);
@@ -230,6 +232,11 @@ function produceData() {
 		// 1.5 sigma = 86%
 		std = (Math.pow(mean/pids.length, 0.75)*6.7+0.3)*150/1.5;
 		console.log("sigma="+std);
+		
+		if (mean==NaN || std==NaN) {
+			mean = 1;
+			std = 10;
+		}
 		
 		ACed = 0;
 		do {
