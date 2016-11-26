@@ -233,7 +233,7 @@ function produceData() {
 		std = (Math.pow(mean/pids.length, 0.75)*6.7+0.3)*150/1.5;
 		console.log("sigma="+std);
 		
-		if (mean==NaN || std==NaN) {
+		if (isNaN(mean) || isNaN(std)) {
 			mean = 1;
 			std = 10;
 		}
