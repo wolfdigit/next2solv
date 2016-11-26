@@ -2,7 +2,7 @@
 <head>
 <title>啊我就拉霸機咩</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-	<!-- Latest compiled and minified CSS -->
+<!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" crossorigin="anonymous">
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -265,8 +265,8 @@ function produceData() {
 		pnum = prob[1];
 		$("<h2>").appendTo("#main");
 		$("<a>", {html: "[ "+pnum+" ]: "+prob[2], href:"https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem="+prob[0], target: "_blank"}).appendTo("#main h2");
-		$("<p>").appendTo("#main");
-		$("<button>", {html: "hardness: "+myRand+"/"+pids.length, href:"#", onclick:"parent.findPnum("+pnum+");", type: "button", class: "btn btn-info btn-sm"}).appendTo("#main p");
+		$("<p>", {style: "padding-left: 5%"}).appendTo("#main");
+		$("<button>", {html: "hardness: "+myRand+"/"+pids.length, href:"#", onclick:"parent.findPnum("+pnum+");", type: "button", class: "btn btn-primary btn-lg"}).appendTo("#main p");
 	}
 }
 
