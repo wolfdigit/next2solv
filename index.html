@@ -365,7 +365,7 @@ var probs;
 function main(uname) {
   document.title = uname + " - " + document.title;
 	d3.json("http://uhunt.felix-halim.net/api/p", function(err,json){
-		if (err) return console.warn(error);
+		if (err) return console.warn(err);
 		probs = json;
 		//probs = <?=json_encode($probs)?>;
 		getUid(probs, uname);
