@@ -333,7 +333,7 @@ function produceData(probs, subs) {
 
 var subs;
 function getSubs(probs, uid) {
-	d3.json("http://uhunt.felix-halim.net/api/subs-user/"+uid, function(err,json){
+	d3.json("http://uhunt.onlinejudge.org/api/subs-user/"+uid, function(err,json){
 		if (err) {
 			subs = [];
 			console.warn(err);
@@ -348,7 +348,7 @@ function getSubs(probs, uid) {
 
 var uid;
 function getUid(probs, uname) {
-	d3.json("http://uhunt.felix-halim.net/api/uname2uid/"+uname, function(err,json){
+	d3.json("http://uhunt.onlinejudge.org/api/uname2uid/"+uname, function(err,json){
 		if (err) {
 			uid = [];
 			console.warn(err);
@@ -364,7 +364,7 @@ function getUid(probs, uname) {
 var probs;
 function main(uname) {
   document.title = uname + " - " + document.title;
-	d3.json("http://uhunt.felix-halim.net/api/p", function(err,json){
+	d3.json("http://uhunt.onlinejudge.org/api/p", function(err,json){
 		if (err) return console.warn(err);
 		probs = json;
 		//probs = <?=json_encode($probs)?>;
